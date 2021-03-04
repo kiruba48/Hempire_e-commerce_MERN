@@ -1,6 +1,5 @@
 const products = [
   {
-    _id: 1,
     name: 'Standard Issue Shirt',
     color: 'Black',
     size: ['S', 'M', 'L', 'XL'],
@@ -16,7 +15,6 @@ const products = [
     numReviews: 12,
   },
   {
-    _id: 2,
     name: 'Standard Issue Tee',
     color: 'Black',
     size: ['S', 'M', 'L', 'XL'],
@@ -32,7 +30,6 @@ const products = [
     numReviews: 12,
   },
   {
-    _id: 3,
     name: 'Standard Issue Tee',
     color: 'whitesmoke',
     size: ['S', 'M', 'L', 'XL'],
@@ -48,7 +45,6 @@ const products = [
     numReviews: 12,
   },
   {
-    _id: 4,
     name: 'Standard Issue Shirt',
     color: 'whitesmoke',
     size: ['S', 'M', 'L', 'XL'],
@@ -64,7 +60,6 @@ const products = [
     numReviews: 12,
   },
   {
-    _id: 5,
     name: 'Standard Issue Hoodie',
     color: 'whitesmoke',
     size: ['S', 'M', 'L', 'XL'],
@@ -80,7 +75,6 @@ const products = [
     numReviews: 12,
   },
   {
-    _id: 6,
     name: 'Standard Issue Hoodie',
     color: 'Black',
     size: ['S', 'M', 'L', 'XL'],

@@ -1,4 +1,4 @@
-import mongoose, { mongo } from 'mongoose';
+import mongoose from 'mongoose';
 
 const reviewSchema = mongoose.Schema(
   {
@@ -48,7 +48,7 @@ const productSchema = mongoose.Schema(
       default: 'Unisex',
     },
     size: {
-      type: [Number],
+      type: [String],
       required: [true, 'A product must have a sizes'],
     },
     description: {
@@ -85,6 +85,6 @@ const productSchema = mongoose.Schema(
   }
 );
 
-const Product = mongoose.model('Product', ProductSchema);
+const Product = mongoose.model('Product', productSchema);
 
 export default Product;

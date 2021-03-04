@@ -1,7 +1,9 @@
 import express from 'express';
 import dotenv from 'dotenv';
+import AppError from './utils/appError.js';
+import { globalErrorHandler } from './middleware/errorMiddleware.js';
+import productRouter from './routes/productRoute.js';
 import connectDB from './config/db.js';
-import products from './data/products.js';
 
 // Environment variable.
 dotenv.config();
@@ -15,27 +17,15 @@ app.get('/', (req, res) => {
   res.send('Working in API...');
 });
 
-app.get('/api/products', (req, res) => {
-  // res.status(200).json({
-  //   status: 'success',
-  //   data: {
-  //     products,
-  //   },
-  // });
-  res.json(products);
+app.use('/api/products', productRouter);
+// app.use('/api/products', productRouter)
+
+// Error handling for undeclared URLs
+app.all('*', (req, res, next) => {
+  next(new AppError(`can't find ${req.originalUrl} on this server`, 404));
 });
 
-app.get('/api/products/:id', (req, res) => {
-  const product = products.find((p) => p._id == req.params.id);
-
-  // res.status(200).json({
-  //   status: 'success',
-  //   data: {
-  //     product,
-  //   },
-  // });
-  res.json(product);
-});
+app.use(globalErrorHandler);
 
 const PORT = process.env.PORT || 5000;
 

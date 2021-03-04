@@ -1,30 +1,71 @@
-import mongoose, { mongo } from 'mongoose';
+import mongoose from 'mongoose';
 
 const orderSchema = mongoose.Schema(
   {
     user: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,
-      ref: 'User',
+      ref: 'user',
     },
-    name: {
+    orderItems: [
+      {
+        name: { type: String, required: true },
+        quantity: { type: Number, required: true },
+        image: { type: String, required: true },
+        price: { type: Number, required: true },
+        product: {
+          type: mongoose.Schema.Types.ObjectId,
+          required: true,
+          ref: 'Product',
+        },
+      },
+    ],
+    shippingAddress: {
+      address: { type: String, required: true },
+      city: { type: String, required: true },
+      postCode: { type: String, required: true },
+      country: { type: String, required: true },
+    },
+    paymentMethod: {
       type: String,
-      required: [true, 'A user must have a name'],
+      required: true,
     },
-    email: {
-      type: String,
-      required: [true, 'A user must have a email'],
-      unique: true,
+    paymentResult: {
+      id: { type: String },
+      status: { type: String },
+      updateTime: { type: String },
+      emailAddress: { type: String },
     },
-    password: {
-      type: String,
-      required: [true, 'A user must have a password'],
-      trim: true,
+    taxPrice: {
+      type: Number,
+      required: true,
+      default: 0.0,
     },
-    isAdmin: {
+    shippingPrice: {
+      type: Number,
+      required: true,
+      default: 0.0,
+    },
+    totalPrice: {
+      type: Number,
+      required: true,
+      default: 0.0,
+    },
+    isPaid: {
       type: Boolean,
-      required: [true, 'A user must have a isAdmin status'],
+      required: true,
       default: false,
+    },
+    paidAt: {
+      type: Date,
+    },
+    isDelivered: {
+      type: Boolean,
+      required: true,
+      default: false,
+    },
+    deliveredAt: {
+      type: Date,
     },
   },
   {
@@ -32,6 +73,6 @@ const orderSchema = mongoose.Schema(
   }
 );
 
-const Order = mongoose.model('User', orderSchema);
+const Order = mongoose.model('Order', orderSchema);
 
 export default Order;
