@@ -1,7 +1,7 @@
 import Product from '../models/productModel.js';
 import AppError from '../utils/appError.js';
 
-const getAllProducts = async (req, res) => {
+const getAllProducts = async (req, res, next) => {
   const products = await Product.find({});
   res.json(products);
 };

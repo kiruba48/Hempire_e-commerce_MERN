@@ -2,6 +2,8 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Col, Row } from 'react-bootstrap';
 import Product from '../components/Product';
+import Loader from '../components/Loader';
+import Message from '../components/Message';
 import { listOfProducts } from '../actions/productActions';
 
 // import products from '../products';
@@ -12,8 +14,9 @@ const HomeScreen = () => {
   // Getting the data from our State repository
   const productList = useSelector((state) => state.productList);
   const { loading, error, products } = productList;
+
   useEffect(() => {
-    dispatch(listOfProducts());
+    dispatch(listOfProducts()); //dispatching action to reducers
   }, [dispatch]);
 
   return (
@@ -21,9 +24,9 @@ const HomeScreen = () => {
       <h1>Featured Products</h1>
 
       {loading ? (
-        <h2>Loading</h2>
+        <Loader />
       ) : error ? (
-        <h3>{error}</h3>
+        <Message variant='danger'>{error}</Message>
       ) : (
         <Row>
           {products.map((product) => {
