@@ -17,10 +17,12 @@ import Rating from '../components/Rating';
 import { productDetailsAction } from '../actions/productActions';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
+import ColorChooser from '../components/ColorChooser';
 
 const ProductScreen = ({ history, match }) => {
-  const [quantity, setQuantity] = useState(0);
-  const [selectedSize, setSelectedSize] = useState('');
+  const [quantity, setQuantity] = useState(1);
+  const [selectedSize, setSelectedSize] = useState('S');
+  const [selectedColor, setSelectedColor] = useState('white');
 
   const dispatch = useDispatch();
   const productId = match.params.id;
@@ -31,13 +33,20 @@ const ProductScreen = ({ history, match }) => {
 
   // Go to cart page when clicked along with some values
   const addToCartHandler = () => {
-    history.push(`/cart/${productId}?size=${selectedSize}&qty=${quantity}`);
+    history.push(
+      `/cart/${productId}?size=${selectedSize}&qty=${quantity}&color=${selectedColor}`
+    );
+  };
+
+  // State change callback to change color state
+  const onColorChangeHandle = (color) => {
+    setSelectedColor(color);
   };
 
   const productDetails = useSelector((state) => state.productDetails);
   const { product, error, loading } = productDetails;
 
-  return (
+  return product ? (
     <>
       {/* <Link to='/'>
         <Button className='btn-dark my-3'>Go Back</Button>
@@ -92,14 +101,22 @@ const ProductScreen = ({ history, match }) => {
                   <Col md={6}>
                     <Row>
                       <Col>
-                        <i
+                        {product.color
+                          ? product.color.length >= 1 && (
+                              <ColorChooser
+                                availableColors={product.color}
+                                onColorChange={onColorChangeHandle}
+                              />
+                            )
+                          : null}
+                        {/* <i
                           className='fas fa-circle fa-3x m-3'
                           style={{
                             color: `${product.color}`,
                             borderRadius: '50%',
                             border: '1px solid black',
                           }}
-                        ></i>
+                        ></i> */}
                       </Col>
                     </Row>
                   </Col>
@@ -238,6 +255,8 @@ const ProductScreen = ({ history, match }) => {
         </Row>
       )}
     </>
+  ) : (
+    <Loader />
   );
 };
 

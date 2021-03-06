@@ -39,7 +39,7 @@ const productSchema = mongoose.Schema(
       trim: true,
     },
     color: {
-      type: String,
+      type: [String],
       required: [true, 'A product must have a color'],
     },
     sex: {
