@@ -15,6 +15,7 @@ import {
 } from 'react-bootstrap';
 import Rating from '../components/Rating';
 import { productDetailsAction } from '../actions/productActions';
+import { addToCartAction } from '../actions/cartActions';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
 import ColorChooser from '../components/ColorChooser';
@@ -31,13 +32,6 @@ const ProductScreen = ({ history, match }) => {
     dispatch(productDetailsAction(productId));
   }, [productId, dispatch]);
 
-  // Go to cart page when clicked along with some values
-  const addToCartHandler = () => {
-    history.push(
-      `/cart/${productId}?size=${selectedSize}&qty=${quantity}&color=${selectedColor}`
-    );
-  };
-
   // State change callback to change color state
   const onColorChangeHandle = (color) => {
     setSelectedColor(color);
@@ -45,6 +39,25 @@ const ProductScreen = ({ history, match }) => {
 
   const productDetails = useSelector((state) => state.productDetails);
   const { product, error, loading } = productDetails;
+
+  const cart = useSelector((state) => state.cart);
+  const foundOnBasket = () =>
+    cart.cartItems.find((item) => item.productId === product._id);
+
+  // Go to cart page when clicked along with some values
+  const addToCartHandler = () => {
+    if (foundOnBasket()) {
+      console.log('yet to be removed from cart');
+    } else {
+      dispatch(
+        addToCartAction(productId, quantity, selectedColor, selectedSize)
+      );
+      console.log('Item added to cart');
+    }
+    // history.push(
+    //   `/cart/${productId}?size=${selectedSize}&qty=${quantity}&color=${selectedColor}`
+    // );
+  };
 
   return product ? (
     <>
@@ -178,7 +191,7 @@ const ProductScreen = ({ history, match }) => {
                       type='button'
                       disabled={product.countInStock === 0}
                     >
-                      Add To Cart
+                      {foundOnBasket() ? 'Remove From Basket' : 'Add To Basket'}
                     </Button>
                   </Col>
                 </Row>
