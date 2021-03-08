@@ -159,7 +159,7 @@ const ProductScreen = ({ history, match }) => {
               </ListGroup.Item>
               <ListGroup.Item>
                 <h1 className='my-3'>
-                  {product.price ? `$${product.price.toFixed(2)}` : null}
+                  {product.price ? `£${product.price.toFixed(2)}` : null}
                 </h1>
                 <p>{product.countInStock > 0 ? 'In Stock' : 'Out of Stock'}</p>
               </ListGroup.Item>

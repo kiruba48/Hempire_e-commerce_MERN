@@ -8,11 +8,13 @@ import Footer from './components/Footer';
 import HomeScreen from './screens/HomeScreen';
 import ProductScreen from './screens/ProductScreen';
 import CartScreen from './screens/CartScreen';
+import Cart from './components/cart/Cart';
 
 const App = () => {
   return (
     <Router>
       <Header />
+      <Cart />
       <main className='py-3'>
         <Container>
           {/* <h1>HEMPIRE</h1> */}

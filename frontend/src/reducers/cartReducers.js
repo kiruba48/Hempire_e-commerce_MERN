@@ -1,4 +1,4 @@
-import { CART_ADD_ITEM } from '../constants/cartConstants';
+import { CART_ADD_ITEM, CART_REMOVE_ITEM } from '../constants/cartConstants';
 
 export const cartReducer = (state = { cartItems: [] }, action) => {
   switch (action.type) {
@@ -11,23 +11,24 @@ export const cartReducer = (state = { cartItems: [] }, action) => {
       );
       console.log(existingItem);
       if (existingItem) {
-        return state;
-        // return {
-        //   ...state,
-        //   cartItems: state.cartItems.map(
-        //     (itemInCart) =>
-        //       itemInCart.productId === existingItem.productId && [
-        //         {
-        //           ...itemInCart,
-        //           quantity: itemInCart.quantity + item.quantity,
-        //         },
-        //       ]
-        //   ),
-        // };
+        // return state;
+        return {
+          ...state,
+          cartItems: state.cartItems.map((itemInCart) =>
+            itemInCart.productId === existingItem.productId ? item : itemInCart
+          ),
+        };
       } else {
         return { ...state, cartItems: [...state.cartItems, item] };
       }
 
+    case CART_REMOVE_ITEM:
+      return {
+        ...state,
+        cartItems: state.cartItems.filter(
+          (product) => product.productId !== action.payload
+        ),
+      };
     default:
       return state;
   }
