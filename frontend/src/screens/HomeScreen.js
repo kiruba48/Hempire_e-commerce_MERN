@@ -5,6 +5,7 @@ import Product from '../components/Product';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
 import { listOfProducts } from '../actions/productActions';
+import Sections from '../components/Sections';
 
 // import products from '../products';
 
@@ -21,8 +22,8 @@ const HomeScreen = () => {
 
   return (
     <>
-      <h1>Featured Products</h1>
-
+      <Sections />
+      <h1 className='my-5'>Featured Products</h1>
       {loading ? (
         <Loader />
       ) : error ? (

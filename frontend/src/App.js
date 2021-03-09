@@ -9,6 +9,7 @@ import HomeScreen from './screens/HomeScreen';
 import ProductScreen from './screens/ProductScreen';
 import CartScreen from './screens/CartScreen';
 import Cart from './components/cart/Cart';
+import SectionScreen from './screens/SectionScreen';
 
 const App = () => {
   return (
@@ -20,6 +21,7 @@ const App = () => {
           {/* <h1>HEMPIRE</h1> */}
 
           <Route path='/' component={HomeScreen} exact />
+          <Route path='/section' component={SectionScreen} />
           <Route path='/product/:id' component={ProductScreen} />
           <Route path='/cart/:id?' component={CartScreen} />
         </Container>
