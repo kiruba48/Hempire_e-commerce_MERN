@@ -19,8 +19,9 @@ const protect = asyncHandler(async (req, res, next) => {
     );
   }
   // Token verification
+  let decoded;
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    decoded = jwt.verify(token, process.env.JWT_SECRET);
     // next();
   } catch (error) {
     if (error.name === 'JsonWebTokenError') {
@@ -37,6 +38,18 @@ const protect = asyncHandler(async (req, res, next) => {
     );
   }
   // Check if user changed password after the token was issued
+  // .iat => issued At
+  if (loginUserDetail.changedPasswordAfter(decoded.iat)) {
+    return next(
+      new AppError(
+        'Password has been changed recently, Please login again!',
+        401
+      )
+    );
+  }
+
+  // Grant Access To Protected Route
+  req.user = loginUserDetail;
   next();
 });
 

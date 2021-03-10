@@ -12,9 +12,14 @@ export const authUser = asyncHandler(async (req, res, next) => {
   const { email, password } = req.body; // data from the client
 
   const user = await User.findOne({ email }).select('+password');
-  const userPassword = user.password;
-  // Generate JWT token
-  const token = loginAuthToken(user._id);
+  let userPassword;
+  let token;
+  if (user) {
+    userPassword = user.password;
+    // Generate JWT token
+    token = loginAuthToken(user._id);
+  }
+
   //  Verify the user with password.
   if (user && (await user.matchPassword(password, userPassword))) {
     res.json({

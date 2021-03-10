@@ -7,6 +7,7 @@ export const addToCartAction = (id, quantity, color, size) => async (
 ) => {
   const { data } = await axios.get(`/api/products/${id}`);
 
+  // We do not need every detail of product in 'data' so we take the specifics
   dispatch({
     type: CART_ADD_ITEM,
     payload: {
@@ -21,6 +22,7 @@ export const addToCartAction = (id, quantity, color, size) => async (
     },
   });
 
+  // Saving the current state after dispatching the action above.
   localStorage.setItem('cartItems', JSON.stringify(getState().cart.cartItems));
 };
 
