@@ -11,6 +11,7 @@ import CartScreen from './screens/CartScreen';
 import Cart from './components/cart/Cart';
 import SectionScreen from './screens/SectionScreen';
 import LoginScreen from './screens/LoginScreen';
+import RegisterScreen from './screens/RegisterScreen';
 
 const App = () => {
   return (
@@ -22,6 +23,7 @@ const App = () => {
           {/* <h1>HEMPIRE</h1> */}
 
           <Route path='/login' component={LoginScreen} />
+          <Route path='/register' component={RegisterScreen} />
           <Route path='/section' component={SectionScreen} />
           <Route path='/product/:id' component={ProductScreen} />
           {/* <Route path='/cart/:id?' component={CartScreen} /> */}

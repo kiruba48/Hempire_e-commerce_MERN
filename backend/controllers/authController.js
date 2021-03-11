@@ -33,3 +33,26 @@ export const authUser = asyncHandler(async (req, res, next) => {
     return next(new AppError('Invalid email or password', 401));
   }
 });
+
+// @description   Update current logged in user's password
+// @route   POST /api/users/
+// @access   Private
+
+export const updatePassword = asyncHandler(async (req, res, next) => {
+  // GET user from DB collection
+  const user = await User.findById(req.user._id).select('+password');
+
+  // Check if POSTed current password is correct
+  if (!(await user.matchPassword(req.body.passwordCurrent, user.password))) {
+    return next(new AppError('Password does not match', 401));
+  }
+  // If so , update password
+  user.password = req.body.password;
+  user.passwordConfirm = req.body.passwordConfirm;
+  await user.save();
+
+  // Log user in, send JWT
+  res.status(200).json({
+    token: loginAuthToken(user._id),
+  });
+});
