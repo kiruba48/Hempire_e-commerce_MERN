@@ -16,7 +16,7 @@ const LoginScreen = ({ history, location }) => {
   //   Getting the user Info from global state
   const userLogin = useSelector((state) => state.userLogin);
   const { loading, error, userInfo } = userLogin;
-
+  // console.log(location.search);
   //   console.log(userLogin);
   const redirect = location.search ? location.search.split('=')[1] : '/';
 

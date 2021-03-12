@@ -53,6 +53,10 @@ export const updatePassword = asyncHandler(async (req, res, next) => {
 
   // Log user in, send JWT
   res.status(200).json({
+    _id: user._id,
+    name: user.name,
+    email: user.email,
+    isAdmin: user.isAdmin,
     token: loginAuthToken(user._id),
   });
 });

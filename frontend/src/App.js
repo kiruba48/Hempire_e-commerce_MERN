@@ -12,6 +12,10 @@ import Cart from './components/cart/Cart';
 import SectionScreen from './screens/SectionScreen';
 import LoginScreen from './screens/LoginScreen';
 import RegisterScreen from './screens/RegisterScreen';
+import ProfileScreen from './screens/ProfileScreen';
+import PasswordChangeScreen from './screens/PasswordChangeScreen';
+import ShippingScreen from './screens/ShippingScreen';
+import ChoosePaymentScreen from './screens/ChoosePaymentScreen';
 
 const App = () => {
   return (
@@ -22,7 +26,11 @@ const App = () => {
         <Container>
           {/* <h1>HEMPIRE</h1> */}
 
+          <Route path='/payment' component={ChoosePaymentScreen} />
+          <Route path='/shipping' component={ShippingScreen} />
           <Route path='/login' component={LoginScreen} />
+          <Route path='/profile' component={ProfileScreen} />
+          <Route path='/changePassword' component={PasswordChangeScreen} />
           <Route path='/register' component={RegisterScreen} />
           <Route path='/section' component={SectionScreen} />
           <Route path='/product/:id' component={ProductScreen} />
