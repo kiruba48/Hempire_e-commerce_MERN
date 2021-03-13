@@ -13,6 +13,7 @@ import {
   userUpdateReducer,
   userPasswordUpdateReducer,
 } from './reducers/userReducers';
+import { createOrderReducer } from './reducers/orderReducers';
 
 // combining the list of reducer functions
 const reducer = combineReducers({
@@ -24,6 +25,7 @@ const reducer = combineReducers({
   userProfileDetail: userDetailsReducer,
   userProfileUpdate: userUpdateReducer,
   userPasswordUpdate: userPasswordUpdateReducer,
+  orderCreate: createOrderReducer,
 });
 
 // Accessing the local storage to get the cartItems stored (if any)

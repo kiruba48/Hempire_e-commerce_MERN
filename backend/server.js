@@ -4,6 +4,7 @@ import AppError from './utils/appError.js';
 import { globalErrorHandler } from './middleware/errorMiddleware.js';
 import productRouter from './routes/productRoute.js';
 import userRouter from './routes/userRoutes.js';
+import orderRouter from './routes/orderRoutes.js';
 import connectDB from './config/db.js';
 
 // Environment variable.
@@ -24,6 +25,8 @@ app.use('/api/products', productRouter);
 // app.use('/api/products', productRouter)
 
 app.use('/api/users', userRouter);
+
+app.use('/api/orders', orderRouter);
 
 // Error handling for undeclared URLs
 app.all('*', (req, res, next) => {

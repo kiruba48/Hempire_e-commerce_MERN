@@ -16,6 +16,7 @@ import ProfileScreen from './screens/ProfileScreen';
 import PasswordChangeScreen from './screens/PasswordChangeScreen';
 import ShippingScreen from './screens/ShippingScreen';
 import ChoosePaymentScreen from './screens/ChoosePaymentScreen';
+import PlaceOrderScreen from './screens/PlaceOrderScreen';
 
 const App = () => {
   return (
@@ -26,6 +27,7 @@ const App = () => {
         <Container>
           {/* <h1>HEMPIRE</h1> */}
 
+          <Route path='/placeOrder' component={PlaceOrderScreen} />
           <Route path='/payment' component={ChoosePaymentScreen} />
           <Route path='/shipping' component={ShippingScreen} />
           <Route path='/login' component={LoginScreen} />
