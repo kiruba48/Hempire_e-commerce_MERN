@@ -48,7 +48,7 @@ export const updatePassword = asyncHandler(async (req, res, next) => {
   }
   // If so , update password
   user.password = req.body.password;
-  user.passwordConfirm = req.body.passwordConfirm;
+  // user.passwordConfirm = req.body.passwordConfirm; //don't have password confirm in my user model. have to take care of it
   await user.save();
 
   // Log user in, send JWT

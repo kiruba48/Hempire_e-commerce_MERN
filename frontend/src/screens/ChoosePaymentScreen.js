@@ -45,7 +45,7 @@ const ChoosePaymentScreen = ({ history }) => {
           <Col>
             <Form.Check
               type='radio'
-              label={<i class='fab fa-paypal'> PayPal/Credit Card</i>}
+              label={<i className='fab fa-paypal'> PayPal/Credit Card</i>}
               id='PayPal'
               name='paymentMethod'
               value='PayPal'
@@ -56,7 +56,7 @@ const ChoosePaymentScreen = ({ history }) => {
             <Form.Check
               className='my-3'
               type='radio'
-              label={<i class='fab fa-stripe fa-2x'></i>}
+              label={<i className='fab fa-stripe fa-2x'></i>}
               id='Stripe'
               name='paymentMethod'
               value='Stripe'

@@ -28,6 +28,11 @@ app.use('/api/users', userRouter);
 
 app.use('/api/orders', orderRouter);
 
+// ROUTE FOR API CLIENT ID
+app.get('/api/config/paypal', (req, res) =>
+  res.send(process.env.PAYPAL_CLIENT_ID)
+);
+
 // Error handling for undeclared URLs
 app.all('*', (req, res, next) => {
   next(new AppError(`can't find ${req.originalUrl} on this server`, 404));

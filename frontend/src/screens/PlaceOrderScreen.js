@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Form, Button, Row, Col, ListGroup, Image } from 'react-bootstrap';
+import { Button, Row, Col, ListGroup, Image } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
@@ -17,24 +17,26 @@ const PlaceOrderScreen = ({ history }) => {
   const { userInfo } = userLogin;
 
   //   Calculate Payment Summary
-  cart.itemsPrice = cart.cartItems
-    .reduce((acc, item) => acc + item.price * item.quantity, 0)
-    .toFixed(2);
+  const toFixed2 = (num) => {
+    return (Math.round(num * 100) / 100).toFixed(2);
+  };
 
-  cart.shippingPrice = (cart.itemsPrice > 40 ? 0 : 5).toFixed(2);
+  cart.itemsPrice = toFixed2(
+    cart.cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0)
+  );
+
+  cart.shippingPrice = toFixed2(cart.itemsPrice > 40 ? 0 : 5);
 
   const freeShipping =
     cart.itemsPrice < 40
       ? `Add £${40 - cart.itemsPrice} to get Free Shipping`
       : null;
 
-  cart.taxPrice = Number(0.15 * cart.itemsPrice).toFixed(2);
+  cart.taxPrice = toFixed2(Number((0.15 * cart.itemsPrice).toFixed(2)));
 
-  cart.totalPrice = (
-    Number(cart.itemsPrice) +
-    Number(cart.shippingPrice) +
-    Number(cart.taxPrice)
-  ).toFixed(2);
+  cart.totalPrice = toFixed2(
+    Number(cart.itemsPrice) + Number(cart.shippingPrice) + Number(cart.taxPrice)
+  );
 
   const orderCreate = useSelector((state) => state.orderCreate);
   const { order, success, error } = orderCreate;

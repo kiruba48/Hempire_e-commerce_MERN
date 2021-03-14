@@ -56,6 +56,7 @@ export const getUserProfile = asyncHandler(async (req, res, next) => {
       name: user.name,
       email: user.email,
       isAdmin: user.isAdmin,
+      token: loginAuthToken(user._id),
     });
   } else {
     next(new AppError('User not found', 404));

@@ -17,7 +17,6 @@ export const cartReducer = (
       const existingItem = state.cartItems.find(
         (product) => product.productId === item.productId
       );
-      console.log(existingItem);
       if (existingItem) {
         // return state;
         return {

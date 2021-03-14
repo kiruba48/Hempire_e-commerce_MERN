@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { ORDER_MY_ORDERS_RESET } from '../constants/orderConstants';
 import {
   USER_LOGIN_REQUEST,
   USER_LOGIN_SUCCESS,
@@ -18,6 +19,43 @@ import {
   USER_DETAILS_FAILURE,
   USER_DETAILS_RESET,
 } from '../constants/userConstants';
+
+// USER LOGIN
+export const userLoginAction = (email, password) => async (dispatch) => {
+  try {
+    dispatch({
+      type: USER_LOGIN_REQUEST,
+    });
+
+    // Fetching user details for server
+    const config = {
+      //Configuration for axios request
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    const { data } = await axios.post(
+      '/api/users/login',
+      { email, password },
+      config
+    );
+
+    dispatch({
+      type: USER_LOGIN_SUCCESS,
+      payload: data,
+    });
+
+    localStorage.setItem('userInfo', JSON.stringify(data));
+  } catch (error) {
+    dispatch({
+      type: USER_LOGIN_FAILURE,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
 
 // USER REGISTRATION
 export const userRegisterAction = (name, email, password) => async (
@@ -64,43 +102,6 @@ export const userRegisterAction = (name, email, password) => async (
   }
 };
 
-// USER LOGIN
-export const userLoginAction = (email, password) => async (dispatch) => {
-  try {
-    dispatch({
-      type: USER_LOGIN_REQUEST,
-    });
-
-    // Fetching user details for server
-    const config = {
-      //Configuration for axios request
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    };
-    const { data } = await axios.post(
-      '/api/users/login',
-      { email, password },
-      config
-    );
-
-    dispatch({
-      type: USER_LOGIN_SUCCESS,
-      payload: data,
-    });
-
-    localStorage.setItem('userInfo', JSON.stringify(data));
-  } catch (error) {
-    dispatch({
-      type: USER_LOGIN_FAILURE,
-      payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
-    });
-  }
-};
-
 // USER LOGOUT
 export const logoutAction = () => (dispatch) => {
   localStorage.removeItem('userInfo');
@@ -110,6 +111,10 @@ export const logoutAction = () => (dispatch) => {
 
   dispatch({
     type: USER_DETAILS_RESET,
+  });
+
+  dispatch({
+    type: ORDER_MY_ORDERS_RESET,
   });
 };
 
