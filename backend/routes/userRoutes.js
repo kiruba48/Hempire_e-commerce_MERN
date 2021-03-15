@@ -4,15 +4,17 @@ import {
   registerUser,
   getUserProfile,
   updateUser,
+  getAllUsers,
+  deleteUser,
 } from '../controllers/userController.js';
-import { protect } from '../middleware/authMiddleware.js';
+import { protect, adminProtect } from '../middleware/authMiddleware.js';
 
 const router = express.Router();
 
 // @description  Register a new user
 // @route   POST /api/users/
 // @access   Public
-router.route('/').post(registerUser);
+router.route('/').post(registerUser).get(protect, adminProtect, getAllUsers);
 
 // @description Authenticate user login
 // @route   GET /api/users/login
@@ -33,5 +35,10 @@ router.patch('/updateUser', protect, updateUser);
 // @route   POST /api/users/updatePassword
 // @access   Private
 router.patch('/updatePassword', protect, updatePassword);
+
+// @description  DELETE USER
+// @route   DELETE /api/users/:id
+// @access   Private
+router.delete('/:id', protect, adminProtect, deleteUser);
 
 export default router;

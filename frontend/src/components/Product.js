@@ -5,10 +5,14 @@ import Rating from './Rating';
 
 const Product = ({ product }) => {
   return (
-    <Card border='light' className='my-3 p-3 rounded'>
+    <Card
+      border='light'
+      className='my-3 p-3 rounded'
+      // style={{ boxShadow: '0px 1px 8px 0px rgba(0,0,0,0.50)' }}
+    >
       <Link to={`/product/${product._id}`}>
         <Card.Img
-          style={{ height: '23rem' }}
+          style={{ height: '20rem' }}
           variant='top'
           src={product.image}
         />

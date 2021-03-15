@@ -18,6 +18,10 @@ import {
   USER_PASSWORD_CHANGE_FAILURE,
   USER_DETAILS_FAILURE,
   USER_DETAILS_RESET,
+  USER_LIST_REQUEST,
+  USER_LIST_SUCCESS,
+  USER_LIST_FAILURE,
+  USER_LIST_RESET,
 } from '../constants/userConstants';
 
 // USER LOGIN
@@ -116,6 +120,10 @@ export const logoutAction = () => (dispatch) => {
   dispatch({
     type: ORDER_MY_ORDERS_RESET,
   });
+
+  dispatch({
+    type: USER_LIST_RESET,
+  });
 };
 
 // GET USER DETAILS
@@ -135,7 +143,7 @@ export const getUserDetails = (id) => async (dispatch, getState) => {
         Authorization: `Bearer ${userInfo.token}`,
       },
     };
-    // id is goning to be 'profile' when we access this from logged in user.
+    // id is GOING to be 'profile' when we access this from logged in user.
     const { data } = await axios.get(`/api/users/${id}`, config);
 
     dispatch({
@@ -154,6 +162,39 @@ export const getUserDetails = (id) => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: USER_DETAILS_FAILURE,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+// GET ALL USER DETAILS (ONLY ADMIN)
+export const getAllUserAction = () => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: USER_LIST_REQUEST,
+    });
+
+    const {
+      userLogin: { userInfo },
+    } = getState();
+    const config = {
+      //Configuration for axios request
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+    const { data } = await axios.get(`/api/users`, config);
+
+    dispatch({
+      type: USER_LIST_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: USER_LIST_FAILURE,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message

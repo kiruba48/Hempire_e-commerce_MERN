@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken';
 import User from '../models/userModel.js';
 import AppError from '../utils/appError.js';
 
-const protect = asyncHandler(async (req, res, next) => {
+export const protect = asyncHandler(async (req, res, next) => {
   let token;
   // Get the token if exists
   if (
@@ -53,4 +53,11 @@ const protect = asyncHandler(async (req, res, next) => {
   next();
 });
 
-export { protect };
+export const adminProtect = asyncHandler(async (req, res, next) => {
+  // Check if the user is Admin
+  if (req.user && req.user.isAdmin) {
+    return next();
+  } else {
+    next(new AppError('Not Authorized! This request is for Admin only', 401));
+  }
+});

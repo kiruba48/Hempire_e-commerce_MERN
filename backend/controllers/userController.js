@@ -94,3 +94,24 @@ export const updateUser = asyncHandler(async (req, res, next) => {
     token: loginAuthToken(updatedUser._id),
   });
 });
+
+// @description   GET all users
+// @route   GET /api/users
+// @access   Private/Admin
+export const getAllUsers = asyncHandler(async (req, res, next) => {
+  const users = await User.find({});
+  res.json(users);
+});
+
+// @description   DELETE USER
+// @route   DELETE /api/users
+// @access   Private/Admin
+export const deleteUser = asyncHandler(async (req, res, next) => {
+  const users = await User.findById(req.params.id);
+  if (user) {
+    await user.remove();
+    res.json({ message: 'User Removed' });
+  } else {
+    next(new AppError('User not found', 404));
+  }
+});

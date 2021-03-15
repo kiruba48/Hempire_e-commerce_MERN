@@ -18,6 +18,10 @@ import {
   USER_PASSWORD_CHANGE_FAILURE,
   USER_PASSWORD_CHANGE_RESET,
   USER_DETAILS_RESET,
+  USER_LIST_REQUEST,
+  USER_LIST_SUCCESS,
+  USER_LIST_FAILURE,
+  USER_LIST_RESET,
 } from '../constants/userConstants';
 
 // Reducer function
@@ -65,6 +69,23 @@ export const userDetailsReducer = (state = { user: {} }, action) => {
     case USER_DETAILS_RESET:
       return { user: {} };
 
+    default:
+      return state;
+  }
+};
+
+// Reducer function
+// @description Reducer TO GET ALL USERS (ADMIN ONLY)
+export const getAllUsersReducer = (state = { users: [] }, action) => {
+  switch (action.type) {
+    case USER_LIST_REQUEST:
+      return { loading: true };
+    case USER_LIST_SUCCESS:
+      return { loading: false, success: true, users: action.payload };
+    case USER_LIST_FAILURE:
+      return { loading: false, error: action.payload };
+    case USER_LIST_RESET:
+      return { users: [] };
     default:
       return state;
   }

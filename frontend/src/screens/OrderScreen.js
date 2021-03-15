@@ -74,7 +74,6 @@ const OrderScreen = ({ match, history }) => {
   // On payment success, this updates the database with the payment result.
   // POST /api/orders/:id/pay
   const successPaymentHandler = (paymentResult) => {
-    console.log(paymentResult);
     dispatch(orderPaymentDetailsAction(orderId, paymentResult));
   };
 
