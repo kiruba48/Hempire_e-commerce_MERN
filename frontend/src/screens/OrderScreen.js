@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { PayPalButton } from 'react-paypal-button-v2';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
-import { Form, Button, Row, Col, ListGroup, Image } from 'react-bootstrap';
+import { Row, Col, ListGroup, Image } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
@@ -17,10 +17,12 @@ const OrderScreen = ({ match, history }) => {
   const [sdkReady, setSdkReady] = useState(false);
   const orderId = match.params.id;
 
-  const { cart, userLogin } = useSelector((state) => ({
-    cart: state.cart,
-    userLogin: state.userLogin,
-  }));
+  // const { cart, userLogin } = useSelector((state) => ({
+  //   cart: state.cart,
+  //   userLogin: state.userLogin,
+  // }));
+
+  const userLogin = useSelector((state) => state.userLogin);
 
   const { userInfo } = userLogin;
 

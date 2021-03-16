@@ -6,6 +6,8 @@ import {
   updateUser,
   getAllUsers,
   deleteUser,
+  getUserById,
+  updateUserByAdmin,
 } from '../controllers/userController.js';
 import { protect, adminProtect } from '../middleware/authMiddleware.js';
 
@@ -36,9 +38,13 @@ router.patch('/updateUser', protect, updateUser);
 // @access   Private
 router.patch('/updatePassword', protect, updatePassword);
 
-// @description  DELETE USER
+// @description  DELETE USER & GET user by id & PATCH user
 // @route   DELETE /api/users/:id
 // @access   Private
-router.delete('/:id', protect, adminProtect, deleteUser);
+router
+  .route('/:id')
+  .delete(protect, adminProtect, deleteUser)
+  .get(protect, adminProtect, getUserById)
+  .patch(protect, adminProtect, updateUserByAdmin);
 
 export default router;

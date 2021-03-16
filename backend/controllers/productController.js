@@ -25,8 +25,48 @@ const getProduct = asyncHandler(async (req, res, next) => {
   if (product) {
     res.json(product);
   } else {
-    next(new AppError(`can't find product on this server`, 404));
+    next(new AppError(`Product Not Found`, 404));
   }
 });
 
-export { getAllProducts, getProduct };
+// @description   DELETE A PRODUCT
+// @route   DELETE /api/products/:id
+// @access   PRIVATE/ADMIN
+const deleteProduct = asyncHandler(async (req, res, next) => {
+  const product = await Product.findById(req.params.id);
+
+  if (product) {
+    await product.remove();
+    res.json({ message: 'Product Removed' });
+  } else {
+    next(new AppError(`Product Not Found`, 404));
+  }
+});
+
+// @description CREATE A PRODUCT
+// @route   POST /api/products
+// @access   PRIVATE/ADMIN
+const createProduct = asyncHandler(async (req, res, next) => {
+  const product = await Product.create(req.body);
+
+  res.status(201).json(product);
+});
+
+// @description UPDATE A PRODUCT
+// @route   PATCH /api/products/:id
+// @access   PRIVATE/ADMIN
+const updateProduct = asyncHandler(async (req, res, next) => {
+  const product = await Product.findByIdAndUpdate(req.params.id, req.body, {
+    new: true,
+    runValidators: true,
+  });
+  res.status(201).json(product);
+});
+
+export {
+  getAllProducts,
+  getProduct,
+  deleteProduct,
+  createProduct,
+  updateProduct,
+};

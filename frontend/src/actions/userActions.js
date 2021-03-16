@@ -22,6 +22,12 @@ import {
   USER_LIST_SUCCESS,
   USER_LIST_FAILURE,
   USER_LIST_RESET,
+  USER_DELETE_REQUEST,
+  USER_DELETE_SUCCESS,
+  USER_DELETE_FAILURE,
+  USER_UPDATE_ADMINS_REQUEST,
+  USER_UPDATE_ADMINS_SUCCESS,
+  USER_UPDATE_ADMINS_FAILURE,
 } from '../constants/userConstants';
 
 // USER LOGIN
@@ -152,13 +158,14 @@ export const getUserDetails = (id) => async (dispatch, getState) => {
     });
 
     // Updating the user details stored in the state and local storage
+    if (id === 'profile') {
+      dispatch({
+        type: USER_LOGIN_SUCCESS,
+        payload: data,
+      });
 
-    dispatch({
-      type: USER_LOGIN_SUCCESS,
-      payload: data,
-    });
-
-    localStorage.setItem('userInfo', JSON.stringify(data));
+      localStorage.setItem('userInfo', JSON.stringify(data));
+    }
   } catch (error) {
     dispatch({
       type: USER_DETAILS_FAILURE,
@@ -301,6 +308,79 @@ export const updateUserPasswordAction = (
   } catch (error) {
     dispatch({
       type: USER_PASSWORD_CHANGE_FAILURE,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+// DELETE USER
+export const userDeleteAction = (id) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: USER_DELETE_REQUEST,
+    });
+
+    const {
+      userLogin: { userInfo },
+    } = getState();
+    const config = {
+      //Configuration for axios request
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+    // id is goning to be 'profile' when we access this from logged in user.
+    await axios.delete(`/api/users/${id}`, config);
+
+    dispatch({
+      type: USER_DELETE_SUCCESS,
+    });
+  } catch (error) {
+    dispatch({
+      type: USER_DELETE_FAILURE,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+// DELETE USER
+export const userUpdateByAdminAction = (user) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: USER_UPDATE_ADMINS_REQUEST,
+    });
+
+    const {
+      userLogin: { userInfo },
+    } = getState();
+    const config = {
+      //Configuration for axios request
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+    // id is goning to be 'profile' when we access this from logged in user.
+    const { data } = await axios.patch(`/api/users/${user._id}`, user, config);
+
+    dispatch({
+      type: USER_UPDATE_ADMINS_SUCCESS,
+    });
+
+    // Dispatch update user Detail.
+    dispatch({
+      type: USER_DETAILS_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: USER_UPDATE_ADMINS_FAILURE,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message

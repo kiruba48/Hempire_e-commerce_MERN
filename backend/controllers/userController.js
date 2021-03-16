@@ -64,7 +64,7 @@ export const getUserProfile = asyncHandler(async (req, res, next) => {
 });
 
 // @description   Update user profile except password
-// @route   POST /api/users/profile
+// @route   PATCH /api/users/profile
 // @access   Private
 export const updateUser = asyncHandler(async (req, res, next) => {
   // Create error if user POSTs password data
@@ -107,11 +107,57 @@ export const getAllUsers = asyncHandler(async (req, res, next) => {
 // @route   DELETE /api/users
 // @access   Private/Admin
 export const deleteUser = asyncHandler(async (req, res, next) => {
-  const users = await User.findById(req.params.id);
+  const user = await User.findById(req.params.id);
   if (user) {
-    await user.remove();
-    res.json({ message: 'User Removed' });
+    if (user.isAdmin) {
+      next(new AppError('Cannot delete Admin User', 400));
+    } else {
+      await user.remove();
+      res.json({ message: 'User Removed' });
+    }
   } else {
     next(new AppError('User not found', 404));
   }
+});
+
+// @description   GET user By ID for Admin
+// @route   GET /api/users/:id
+// @access   Private/Admin
+export const getUserById = asyncHandler(async (req, res, next) => {
+  const user = await User.findById(req.params.id);
+  if (user) {
+    res.json(user);
+  } else {
+    next(new AppError('User not found', 404));
+  }
+});
+
+// @description   Update user profile except password By Admin
+// @route   PATCH /api/users/:id
+// @access   Private/Admin
+export const updateUserByAdmin = asyncHandler(async (req, res, next) => {
+  // Update user document
+  const updatedUser = await User.findByIdAndUpdate(
+    req.params.id,
+    {
+      name: req.body.name,
+      email: req.body.email,
+      isAdmin: req.body.isAdmin,
+    },
+    {
+      new: true,
+      runValidators: true,
+    }
+  );
+  if (!updatedUser) {
+    next(new AppError('User not found', 404));
+  }
+
+  res.status(200).json({
+    _id: updatedUser._id,
+    name: updatedUser.name,
+    email: updatedUser.email,
+    isAdmin: updatedUser.isAdmin,
+    token: loginAuthToken(updatedUser._id),
+  });
 });

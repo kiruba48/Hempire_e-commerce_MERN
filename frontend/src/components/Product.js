@@ -12,7 +12,10 @@ const Product = ({ product }) => {
     >
       <Link to={`/product/${product._id}`}>
         <Card.Img
-          style={{ height: '20rem' }}
+          style={{
+            height: '20rem',
+            boxShadow: '0px 1px 2px 0px rgba(0,0,0,0.50)',
+          }}
           variant='top'
           src={product.image}
         />

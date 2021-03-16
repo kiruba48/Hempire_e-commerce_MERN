@@ -1,15 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  Row,
-  Col,
-  ListGroup,
-  Form,
-  Button,
-  Card,
-  Image,
-} from 'react-bootstrap';
+import { Row, Col, ListGroup, Form, Button, Image } from 'react-bootstrap';
 import CartToggle from './CartToggle';
 // import Message from '../components/Message';
 // import { addToCartAction } from '../actions/cartActions';

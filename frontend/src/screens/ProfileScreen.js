@@ -9,10 +9,7 @@ import {
   getUserDetails,
   updateUserDetailsAction,
 } from '../actions/userActions';
-import {
-  USER_DETAILS_RESET,
-  USER_DETAILS_UPDATE_RESET,
-} from '../constants/userConstants';
+import { USER_DETAILS_UPDATE_RESET } from '../constants/userConstants';
 import { fetchMyOrdersAction } from '../actions/orderActions';
 
 const ProfileScreen = ({ history, location }) => {

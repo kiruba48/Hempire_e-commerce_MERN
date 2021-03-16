@@ -4,6 +4,8 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import {
   productDetailsReducer,
   productReducer,
+  productDeleteReducer,
+  productUpdateReducer,
 } from './reducers/productReducers';
 import { cartReducer } from './reducers/cartReducers';
 import {
@@ -13,6 +15,8 @@ import {
   userUpdateReducer,
   userPasswordUpdateReducer,
   getAllUsersReducer,
+  userDeleteReducer,
+  userUpdateByAdminReducer,
 } from './reducers/userReducers';
 import {
   createOrderReducer,
@@ -25,6 +29,8 @@ import {
 const reducer = combineReducers({
   productList: productReducer,
   productDetails: productDetailsReducer,
+  productDelete: productDeleteReducer,
+  productUpdate: productUpdateReducer,
   cart: cartReducer,
   userLogin: userLoginReducer,
   userRegister: userRegisterReducer,
@@ -32,6 +38,8 @@ const reducer = combineReducers({
   userProfileUpdate: userUpdateReducer,
   userPasswordUpdate: userPasswordUpdateReducer,
   userList: getAllUsersReducer,
+  userDelete: userDeleteReducer,
+  userUpdateByAdmin: userUpdateByAdminReducer,
   orderCreate: createOrderReducer,
   orderDetails: orderDetailsReducer,
   paymentUpdate: updatePaymentReducer,

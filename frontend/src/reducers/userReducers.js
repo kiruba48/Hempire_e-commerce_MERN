@@ -22,6 +22,13 @@ import {
   USER_LIST_SUCCESS,
   USER_LIST_FAILURE,
   USER_LIST_RESET,
+  USER_DELETE_REQUEST,
+  USER_DELETE_SUCCESS,
+  USER_DELETE_FAILURE,
+  USER_UPDATE_ADMINS_REQUEST,
+  USER_UPDATE_ADMINS_SUCCESS,
+  USER_UPDATE_ADMINS_FAILURE,
+  USER_UPDATE_ADMINS_RESET,
 } from '../constants/userConstants';
 
 // Reducer function
@@ -122,6 +129,39 @@ export const userPasswordUpdateReducer = (state = {}, action) => {
     case USER_PASSWORD_CHANGE_RESET:
       return {};
 
+    default:
+      return state;
+  }
+};
+
+// Reducer function
+// @description Reducer for DELETING USER
+export const userDeleteReducer = (state = {}, action) => {
+  switch (action.type) {
+    case USER_DELETE_REQUEST:
+      return { loading: true };
+    case USER_DELETE_SUCCESS:
+      return { loading: false, success: true };
+    case USER_DELETE_FAILURE:
+      return { loading: false, error: action.payload };
+
+    default:
+      return state;
+  }
+};
+
+// Reducer function
+// @description Reducer for UPDATING USER DETAIL BY ADMIN
+export const userUpdateByAdminReducer = (state = { user: {} }, action) => {
+  switch (action.type) {
+    case USER_UPDATE_ADMINS_REQUEST:
+      return { loading: true };
+    case USER_UPDATE_ADMINS_SUCCESS:
+      return { loading: false, success: true };
+    case USER_UPDATE_ADMINS_FAILURE:
+      return { loading: false, error: action.payload };
+    case USER_UPDATE_ADMINS_RESET:
+      return { user: {} };
     default:
       return state;
   }
