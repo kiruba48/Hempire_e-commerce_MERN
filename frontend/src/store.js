@@ -6,6 +6,7 @@ import {
   productReducer,
   productDeleteReducer,
   productUpdateReducer,
+  productCreateReducer,
 } from './reducers/productReducers';
 import { cartReducer } from './reducers/cartReducers';
 import {
@@ -23,6 +24,8 @@ import {
   orderDetailsReducer,
   updatePaymentReducer,
   myOrdersReducer,
+  listAllOrdersReducer,
+  updateDeliveryReducer,
 } from './reducers/orderReducers';
 
 // combining the list of reducer functions
@@ -31,6 +34,7 @@ const reducer = combineReducers({
   productDetails: productDetailsReducer,
   productDelete: productDeleteReducer,
   productUpdate: productUpdateReducer,
+  productCreate: productCreateReducer,
   cart: cartReducer,
   userLogin: userLoginReducer,
   userRegister: userRegisterReducer,
@@ -43,7 +47,9 @@ const reducer = combineReducers({
   orderCreate: createOrderReducer,
   orderDetails: orderDetailsReducer,
   paymentUpdate: updatePaymentReducer,
+  deliveryUpdate: updateDeliveryReducer,
   ordersOfLoggedUser: myOrdersReducer,
+  listOfAllOrders: listAllOrdersReducer,
 });
 
 // Accessing the local storage to get the cartItems stored (if any)

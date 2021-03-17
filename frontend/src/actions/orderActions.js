@@ -3,9 +3,15 @@ import {
   ORDER_CREATE_FAIL,
   ORDER_CREATE_REQUEST,
   ORDER_CREATE_SUCCESS,
+  ORDER_DELIVER_FAIL,
+  ORDER_DELIVER_REQUEST,
+  ORDER_DELIVER_SUCCESS,
   ORDER_DETAILS_FAIL,
   ORDER_DETAILS_REQUEST,
   ORDER_DETAILS_SUCCESS,
+  ORDER_LIST_DETAILS_FAIL,
+  ORDER_LIST_DETAILS_REQUEST,
+  ORDER_LIST_DETAILS_SUCCESS,
   ORDER_MY_ORDERS_FAIL,
   ORDER_MY_ORDERS_REQUEST,
   ORDER_MY_ORDERS_SUCCESS,
@@ -164,6 +170,87 @@ export const fetchMyOrdersAction = () => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: ORDER_MY_ORDERS_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+// GET ALL ORDERS FOR ADMIN
+export const fetchAllOrdersAction = () => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: ORDER_LIST_DETAILS_REQUEST,
+    });
+
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    // Fetching user details for server
+    const config = {
+      //Configuration for axios request
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+    const { data } = await axios.get(`/api/orders`, config);
+
+    dispatch({
+      type: ORDER_LIST_DETAILS_SUCCESS,
+      payload: data,
+    });
+
+    //   localStorage.setItem('', JSON.stringify(data));
+  } catch (error) {
+    dispatch({
+      type: ORDER_LIST_DETAILS_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+// UPDATE ORDER DELIVER DETAIL ID
+export const orderDeliveryUpdateAction = (order) => async (
+  dispatch,
+  getState
+) => {
+  try {
+    dispatch({
+      type: ORDER_DELIVER_REQUEST,
+    });
+
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    // Fetching user details for server
+    const config = {
+      //Configuration for axios request
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+    const { data } = await axios.patch(
+      `/api/orders/${order._id}/deliver`,
+      {},
+      config
+    );
+
+    dispatch({
+      type: ORDER_DELIVER_SUCCESS,
+      payload: data,
+    });
+
+    //   localStorage.setItem('', JSON.stringify(data));
+  } catch (error) {
+    dispatch({
+      type: ORDER_DELIVER_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message

@@ -98,3 +98,41 @@ export const getLoggedUserOrders = asyncHandler(async (req, res, next) => {
 
   res.json(orders);
 });
+
+// @description  GET all orders
+// @route   GET /api/orders
+// @access   Private/Admin
+export const getAllOrders = asyncHandler(async (req, res, next) => {
+  //   Create order document in DB
+
+  const orders = await Order.find({}).populate('user', 'id name email');
+
+  res.json(orders);
+});
+
+// @description  update order Delivery Details
+// @route   PATCH /api/orders/:id/deliver
+// @access   Private/Admin
+export const updateOrderDelivery = asyncHandler(async (req, res, next) => {
+  //   Create order document in DB
+
+  const order = await Order.findById(req.params.id);
+
+  if (order) {
+    const updatedOrder = await Order.findByIdAndUpdate(
+      req.params.id,
+      {
+        isDelivered: true,
+        deliveredAt: Date.now(),
+      },
+      {
+        new: true,
+        runValidators: true,
+      }
+    );
+
+    res.json(updatedOrder);
+  } else {
+    next(new AppError('Cannot find the order', 404));
+  }
+});

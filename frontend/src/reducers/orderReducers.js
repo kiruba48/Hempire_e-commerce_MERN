@@ -2,9 +2,16 @@ import {
   ORDER_CREATE_FAIL,
   ORDER_CREATE_REQUEST,
   ORDER_CREATE_SUCCESS,
+  ORDER_DELIVER_FAIL,
+  ORDER_DELIVER_REQUEST,
+  ORDER_DELIVER_SUCCESS,
+  ORDER_DELIVER_RESET,
   ORDER_DETAILS_FAIL,
   ORDER_DETAILS_REQUEST,
   ORDER_DETAILS_SUCCESS,
+  ORDER_LIST_DETAILS_FAIL,
+  ORDER_LIST_DETAILS_REQUEST,
+  ORDER_LIST_DETAILS_SUCCESS,
   ORDER_MY_ORDERS_FAIL,
   ORDER_MY_ORDERS_REQUEST,
   ORDER_MY_ORDERS_RESET,
@@ -80,6 +87,40 @@ export const myOrdersReducer = (state = { orders: [] }, action) => {
       return { loading: false, error: action.payload };
     case ORDER_MY_ORDERS_RESET:
       return { orders: [] };
+
+    default:
+      return state;
+  }
+};
+
+// Reducer function
+// @description Reducer to // GET ALL ORDERS FOR ADMIN
+export const listAllOrdersReducer = (state = { orders: [] }, action) => {
+  switch (action.type) {
+    case ORDER_LIST_DETAILS_REQUEST:
+      return { loading: true };
+    case ORDER_LIST_DETAILS_SUCCESS:
+      return { loading: false, success: true, orders: action.payload };
+    case ORDER_LIST_DETAILS_FAIL:
+      return { loading: false, error: action.payload };
+
+    default:
+      return state;
+  }
+};
+
+// Reducer function
+// @description Reducer to PATCH order payment delivery details
+export const updateDeliveryReducer = (state = {}, action) => {
+  switch (action.type) {
+    case ORDER_DELIVER_REQUEST:
+      return { loading: true };
+    case ORDER_DELIVER_SUCCESS:
+      return { loading: false, success: true, order: action.payload };
+    case ORDER_DELIVER_FAIL:
+      return { loading: false, error: action.payload };
+    case ORDER_DELIVER_RESET:
+      return {};
 
     default:
       return state;
