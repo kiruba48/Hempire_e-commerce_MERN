@@ -9,11 +9,18 @@ import ApiFeatures from '../utils/apiFeatures.js';
 // @access   Public
 const getAllProducts = asyncHandler(async (req, res, next) => {
   // const products = await Product.find({});
-  const features = new ApiFeatures(Product.find(), req.query).filter();
+  const features = new ApiFeatures(Product.find(), req.query)
+    .filter()
+    .search()
+    .pagination()
+    .sort();
   const products = await features.query;
-
+  const count = await Product.countDocuments({ ...features.keyword });
+  const page = features.page;
+  const limit = features.limit;
   // const products = await Product.find(queryObj);
-  res.json(products);
+  // res.json(products);
+  res.json({ products, page, pages: Math.ceil(count / limit) });
 });
 
 // @description   Fetch single product

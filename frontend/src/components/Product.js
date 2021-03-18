@@ -24,10 +24,15 @@ const Product = ({ product }) => {
       <Card.Body>
         <Link to={`/product/${product._id}`}>
           <Card.Title as='div'>
-            <strong>{product.name}</strong>
+            <h5>{product.name}</h5>
           </Card.Title>
         </Link>
         <Card.Text as='div'>
+          {product.sex === 'men' ? (
+            <p>MEN's</p>
+          ) : product.sex === 'women' ? (
+            <p>WOMEN's</p>
+          ) : null}
           <Rating
             value={product.rating}
             text={`${product.numReviews} reviews`}

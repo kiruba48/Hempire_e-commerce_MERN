@@ -1,10 +1,12 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { Route } from 'react-router-dom';
 import { LinkContainer } from 'react-router-bootstrap';
 import { Navbar, Nav, Container, NavDropdown } from 'react-bootstrap';
 import CartToggle from '../components/cart/CartToggle';
 import Badge from '../components/Badge';
 import { logoutAction } from '../actions/userActions';
+import SearchBox from '../components/SearchBox';
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -27,10 +29,16 @@ const Header = () => {
         <Container>
           <Container>
             <LinkContainer to='/'>
-              <Navbar.Brand>HEMPIRE</Navbar.Brand>
+              <Navbar.Brand>
+                <h1>HEMPIRE</h1>
+              </Navbar.Brand>
             </LinkContainer>
             <Navbar.Toggle aria-controls='basic-navbar-nav' />
             <Navbar.Collapse id='basic-navbar-nav'>
+              <Route
+                render={({ history }) => <SearchBox history={history} />}
+              />
+
               <Nav className='ml-auto'>
                 {userInfo && userInfo.isAdmin ? (
                   <NavDropdown title='Admin' id='adminmenu'>
