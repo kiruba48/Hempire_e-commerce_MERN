@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Row, Col, Button, Image } from 'react-bootstrap';
+import { Container, Row, Col, Image } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 function Sections() {
@@ -8,13 +8,17 @@ function Sections() {
       <Row>
         <Col md={6} sm={12}>
           <Link to={`/section?sex=men`}>
-            <Image className='img-fluid' src='/images/section-men.png' fluid />
+            <Image
+              className='img-fluid section-img'
+              src='/images/section-men.png'
+              fluid
+            />
           </Link>
         </Col>
         <Col md={6} sm={12}>
           <Link to={`/section?sex=women`}>
             <Image
-              className='img-fluid'
+              className='img-fluid section-img'
               //   style={{ height: '20rem' }}
               src='/images/section-women.png'
               fluid

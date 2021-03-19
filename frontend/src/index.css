@@ -318,3 +318,129 @@ h3 {
 .cursor-pointer {
   cursor: pointer;
 }
+
+/* Carousal Section */
+.carousel {
+  box-shadow: 0 1.5rem 4rem rgba(#111, 0.2);
+}
+
+.carousal-item-next,
+.carousal-item-prev,
+.carousal-item.active {
+  display: flex;
+}
+
+.carousel-caption {
+  position: absolute;
+  bottom: 0;
+}
+
+.carousel-caption h2 {
+  /* color: whitesmoke; */
+  font-size: 45px;
+  text-shadow: 0.5rem 1rem 2rem rgba(black, 0.2);
+}
+
+.carousel a {
+  margin: 0 auto;
+}
+
+.carousel img {
+  height: 35rem;
+  width: 100%;
+  object-fit: cover;
+  box-shadow: 0 1.5rem 4rem rgba(#111, 0.2);
+  border-radius: 3px;
+}
+
+/* Sections */
+.section-img {
+  transform: scale(1.1);
+  transition: all 0.5s;
+  overflow: hidden;
+  box-shadow: 0 1.5rem 4rem rgba(#111, 0.2);
+}
+
+.section-img:hover {
+  transform: scale(1);
+  transition: all 0.5s;
+}
+
+/* Header Banner Section */
+.header {
+  position: relative;
+  height: 90vh;
+  box-shadow: 0 3rem 6rem rgba(#111, 0.1);
+
+  background-image: linear-gradient(
+      to right bottom,
+      rgba(114, 112, 112, 0.705),
+      rgba(226, 226, 226, 0.705)
+    ),
+    url(./standard-issue-hoodie-black.jpg);
+
+  background-size: cover;
+  background-position: top;
+  clip-path: polygon(0 0, 100% 0, 100% 80vh, 0 100%);
+  margin-bottom: 5rem;
+}
+
+.header__text-container {
+  position: absolute;
+  top: 45%;
+  left: 40%;
+  transform: translate(-50%, -50%);
+}
+
+.primary-heading {
+  color: #fefefe;
+  text-transform: uppercase;
+  backface-visibility: hidden;
+  margin-bottom: 6rem;
+
+  display: block;
+  font-size: 5.5rem;
+  font-weight: 700;
+  letter-spacing: 1.5rem;
+  /* animation-name: moveFromLeft; */
+  /* animation-duration: 1s; */
+  /* animation-delay: 0.5s; */
+  /* animation-fill-mode: backwards; */
+}
+
+.highlight {
+  position: relative;
+}
+
+.highlight::after {
+  display: block;
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: -1;
+  opacity: 0.7;
+  transform: scale(1.07, 1.05) skewX(-15deg);
+  background-image: linear-gradient(
+    to right bottom,
+    rgba(180, 226, 190, 0.705),
+    rgba(226, 226, 226, 0.103)
+  );
+}
+
+.banner-span {
+  font-size: 3.5rem;
+  margin-top: 1rem;
+}
+
+@media only screen and (max-width: 30em) {
+  .primary-heading {
+    font-size: 1.5rem;
+  }
+  .banner-span {
+    font-size: 1.5rem;
+    margin-top: 1rem;
+  }
+}

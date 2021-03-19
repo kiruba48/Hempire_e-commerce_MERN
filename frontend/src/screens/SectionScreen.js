@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Form } from 'react-bootstrap';
+import { Button, Form } from 'react-bootstrap';
 import Message from '../components/Message';
 import { Col, Row } from 'react-bootstrap';
 import axios from 'axios';
@@ -24,7 +24,12 @@ function SectionScreen({ location }) {
 
   useEffect(() => {
     dispatch(listOfProductsBySection(section, minPrice, maxPrice, size));
-  }, [section, dispatch, minPrice, maxPrice, size]);
+  }, [section, dispatch]);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(listOfProductsBySection(section, minPrice, maxPrice, size));
+  };
 
   return (
     <>
@@ -37,7 +42,7 @@ function SectionScreen({ location }) {
       ) : (
         <Row>
           <Col sm={12} md={3} style={{ border: '1px solid whitesmoke' }}>
-            <Form className='my-3'>
+            <Form className='my-3' onSubmit={handleSubmit}>
               {/* controlId='minpricerange' */}
               <Form.Group>
                 <Form.Label>
@@ -133,6 +138,9 @@ function SectionScreen({ location }) {
                   onChange={(e) => setSize(e.target.value)}
                 ></Form.Check>
               </Form.Group>
+              <Button type='submit' className='button btn-block'>
+                Search
+              </Button>
             </Form>
           </Col>
           <Col sm={12} md={9}>

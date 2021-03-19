@@ -20,7 +20,7 @@ import {
   productDetailsAction,
   productReviewCreateAction,
 } from '../actions/productActions';
-import { addToCartAction } from '../actions/cartActions';
+import { addToCartAction, removeFromCartAction } from '../actions/cartActions';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
 import ColorChooser from '../components/ColorChooser';
@@ -59,7 +59,10 @@ const ProductScreen = ({ history, match }) => {
   // Go to cart page when clicked along with some values
   const addToCartHandler = () => {
     if (foundOnBasket()) {
-      console.log('yet to be removed from cart');
+      // console.log('yet to be removed from cart');
+      dispatch(removeFromCartAction(productId));
+      setMessage('Product Removed from Cart');
+      handleShow();
     } else {
       dispatch(
         addToCartAction(productId, quantity, selectedColor, selectedSize)
@@ -130,7 +133,11 @@ const ProductScreen = ({ history, match }) => {
         </Link> */}
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Thanks for Your Review</Modal.Title>
+          <Modal.Title>
+            {message === 'Product Removed from Cart'
+              ? 'Attention'
+              : 'Thanks for Your Review'}
+          </Modal.Title>
         </Modal.Header>
         <Modal.Body>{message}</Modal.Body>
         <Modal.Footer>

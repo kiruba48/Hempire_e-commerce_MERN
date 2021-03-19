@@ -21,32 +21,26 @@ const ProductCarousal = () => {
   ) : error ? (
     <Message variant='danger'>{error}</Message>
   ) : (
-    <Carousel pause='hover'>
+    <Carousel pause='hover' className='carousel'>
       {products.map((product) => (
         <Carousel.Item key={product._id}>
           <Link to={`/product/${product._id}`}>
-            <Row>
+            <Image
+              src={product.image}
+              alt={product.name}
+              className='d-block'
+              fluid
+            />
+            <Carousel.Caption className='carousel-caption'>
+              <h2>{product.name}</h2>
+              <h2>(£{product.price})</h2>
+            </Carousel.Caption>
+            {/* <Row>
               <Col md={8}>
-                <Image
-                  src={product.image}
-                  alt={product.name}
-                  className='d-block'
-                  style={{
-                    height: '30rem',
-                    width: '80%',
-                    overflow: 'hidden',
-                    marginLeft: '15rem',
-                  }}
-                  fluid
-                />
               </Col>
               <Col md={4}>
-                <Carousel.Caption className='carousel-caption text-right'>
-                  <h2 style={{ color: 'black' }}>{product.name}</h2>
-                  <h2 style={{ color: 'black' }}>(£{product.price})</h2>
-                </Carousel.Caption>
               </Col>
-            </Row>
+            </Row> */}
           </Link>
         </Carousel.Item>
       ))}
