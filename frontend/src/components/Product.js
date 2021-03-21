@@ -12,6 +12,7 @@ const Product = ({ product }) => {
     >
       <Link to={`/product/${product._id}`}>
         <Card.Img
+          className='image-small-screen'
           style={{
             height: '20rem',
             boxShadow: '0px 1px 2px 0px rgba(0,0,0,0.50)',
