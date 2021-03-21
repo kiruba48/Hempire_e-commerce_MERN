@@ -1,5 +1,10 @@
 import express from 'express';
-import { authUser, updatePassword } from '../controllers/authController.js';
+import {
+  authUser,
+  updatePassword,
+  forgotPassword,
+  resetPassword,
+} from '../controllers/authController.js';
 import {
   registerUser,
   getUserProfile,
@@ -22,6 +27,16 @@ router.route('/').post(registerUser).get(protect, adminProtect, getAllUsers);
 // @route   GET /api/users/login
 // @access   Public
 router.post('/login', authUser);
+
+// @description Forgot Password Request from user
+// @route   POST /api/users/forgotPassword
+// @access   Public
+router.post('/forgotPassword', forgotPassword);
+
+// @description Reset Password Response from user
+// @route   POST /api/users/resetPassword
+// @access   Public
+router.patch('/resetPassword/:token', resetPassword);
 
 // @description   GET user profile
 // @route   POST /api/users/profile

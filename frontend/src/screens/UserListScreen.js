@@ -71,7 +71,7 @@ const UserListScreen = ({ history }) => {
           hover
           responsive
           className='table-sm'
-          variant='dark'
+          // variant='dark'
         >
           <thead>
             <tr>
@@ -89,7 +89,7 @@ const UserListScreen = ({ history }) => {
                 <td>
                   <a
                     href={`mailto:${user.email}`}
-                    style={{ color: 'whitesmoke' }}
+                    // style={{ color: 'whitesmoke' }}
                   >
                     {user.email}
                   </a>
@@ -98,12 +98,12 @@ const UserListScreen = ({ history }) => {
                   {user.isAdmin ? (
                     <i
                       className='fas fa-users-cog ml-5'
-                      style={{ color: 'whitesmoke' }}
+                      // style={{ color: 'whitesmoke' }}
                     ></i>
                   ) : (
                     <i
                       className='fas fa-users ml-5'
-                      style={{ color: 'whitesmoke' }}
+                      // style={{ color: 'whitesmoke' }}
                     ></i>
                   )}
                 </td>
@@ -113,7 +113,7 @@ const UserListScreen = ({ history }) => {
                     <Button variant='dark' className='btn-sm'>
                       <i
                         className='fas fa-user-edit'
-                        style={{ color: 'whitesmoke' }}
+                        // style={{ color: 'whitesmoke' }}
                       ></i>
                     </Button>
                   </LinkContainer>
@@ -124,7 +124,7 @@ const UserListScreen = ({ history }) => {
                   >
                     <i
                       className='fas fa-user-slash'
-                      style={{ color: 'whitesmoke' }}
+                      // style={{ color: 'whitesmoke' }}
                     ></i>
                   </Button>
                 </td>

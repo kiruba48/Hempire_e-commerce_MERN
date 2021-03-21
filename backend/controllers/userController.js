@@ -3,6 +3,7 @@ import asyncHandler from 'express-async-handler';
 import loginAuthToken from '../utils/generateTokens.js';
 import User from '../models/userModel.js';
 import AppError from '../utils/appError.js';
+import { Email } from '../utils/email.js';
 
 const filterObj = (obj, ...allowedFeilds) => {
   const newObj = {};
@@ -32,6 +33,9 @@ export const registerUser = asyncHandler(async (req, res, next) => {
     email,
     password,
   });
+
+  const url = 'www.linkedin.com/in/kiruba48';
+  await new Email(user, url).sendWelcome();
 
   if (user) {
     res.status(201).json({

@@ -54,7 +54,7 @@ const OrderListScreen = ({ history }) => {
         confirmDelete={confirmDelete}
         id={id}
       />
-      <h1>Users</h1>
+      <h1>ORDERS</h1>
       {/* {errorDelete && <Message variant='danger'>{errorDelete}</Message>} */}
       {loading ? (
         <Loader />
@@ -71,7 +71,7 @@ const OrderListScreen = ({ history }) => {
               <th style={{ textAlign: 'center' }}>PAYMENT</th>
               <th style={{ textAlign: 'center' }}>DELIVERY</th>
               <th style={{ textAlign: 'center' }}>ORDER ID</th>
-              <th style={{ textAlign: 'center' }}>UPDATE/DELETE</th>
+              <th style={{ textAlign: 'center' }}>DETAILS</th>
             </tr>
           </thead>
           <tbody>
@@ -106,7 +106,7 @@ const OrderListScreen = ({ history }) => {
                       <i className='fas fa-info-circle fa-2x'></i>
                     </Button>
                   </LinkContainer>
-                  <Button
+                  {/* <Button
                     variant='danger'
                     className='btn-sm'
                     onClick={() => handleDelete(order._id)}
@@ -115,7 +115,7 @@ const OrderListScreen = ({ history }) => {
                       className='fas fa-user-slash'
                       style={{ color: 'whitesmoke' }}
                     ></i>
-                  </Button>
+                  </Button> */}
                 </td>
               </tr>
             ))}

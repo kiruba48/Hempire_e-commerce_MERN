@@ -24,6 +24,7 @@ import ProductListScreen from './screens/ProductListScreen';
 import CreateProductScreen from './screens/CreateProductScreen';
 import EditProductScreen from './screens/EditProductScreen';
 import OrderListScreen from './screens/OrderListScreen';
+import ResetPasswordScreen from './screens/ResetPasswordScreen';
 
 const App = () => {
   return (
@@ -46,6 +47,10 @@ const App = () => {
           <Route path='/product/:id' component={ProductScreen} />
           <Route path='/admin/userlist' component={UserListScreen} />
           <Route path='/admin/user/:id/edit' component={EditUserScreen} />
+          <Route
+            path='/api/users/resetPassword/:resetToken'
+            component={ResetPasswordScreen}
+          />
           <Route
             path='/admin/productlist/:pageNumber'
             component={ProductListScreen}

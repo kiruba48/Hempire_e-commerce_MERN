@@ -29,6 +29,13 @@ import {
   USER_UPDATE_ADMINS_SUCCESS,
   USER_UPDATE_ADMINS_FAILURE,
   USER_UPDATE_ADMINS_RESET,
+  USER_RESET_PASSWORD_REQUEST,
+  USER_RESET_PASSWORD_SUCCESS,
+  USER_RESET_PASSWORD_FAILURE,
+  USER_RESET_PASSWORD_CONFIRM_REQUEST,
+  USER_RESET_PASSWORD_CONFIRM_SUCCESS,
+  USER_RESET_PASSWORD_CONFIRM_FAILURE,
+  USER_RESET_PASSWORD_RESET,
 } from '../constants/userConstants';
 
 // Reducer function
@@ -162,6 +169,41 @@ export const userUpdateByAdminReducer = (state = { user: {} }, action) => {
       return { loading: false, error: action.payload };
     case USER_UPDATE_ADMINS_RESET:
       return { user: {} };
+    default:
+      return state;
+  }
+};
+
+// Reducer function
+// @description Reducer for FORGOT PASSWORD USER
+export const userForgotPasswordReducer = (state = {}, action) => {
+  switch (action.type) {
+    case USER_RESET_PASSWORD_REQUEST:
+      return { loading: true };
+    case USER_RESET_PASSWORD_SUCCESS:
+      return { loading: false, success: true };
+    case USER_RESET_PASSWORD_FAILURE:
+      return { loading: false, error: action.payload };
+    case USER_RESET_PASSWORD_RESET:
+      return {};
+    default:
+      return state;
+  }
+};
+
+// Reducer function
+// @description Reducer for FORGOT PASSWORD CONFIRM REQUEST USER
+export const userForgotPasswordConfirmReducer = (
+  state = { user: {} },
+  action
+) => {
+  switch (action.type) {
+    case USER_RESET_PASSWORD_CONFIRM_REQUEST:
+      return { loading: true };
+    case USER_RESET_PASSWORD_CONFIRM_SUCCESS:
+      return { loading: false, success: true, user: action.payload };
+    case USER_RESET_PASSWORD_CONFIRM_FAILURE:
+      return { loading: false, error: action.payload };
     default:
       return state;
   }

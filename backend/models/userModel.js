@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import crypto from 'crypto';
 import validator from 'validator';
 import bcrypt from 'bcryptjs';
 
@@ -27,10 +28,12 @@ const userSchema = mongoose.Schema(
       required: true,
       default: false,
     },
+    passwordChangedAt: Date,
+    passwordResetToken: String,
+    passwordResetExpires: Date,
   },
   {
     timestamps: true,
-    passwordChangedAt: Date,
   }
 );
 
@@ -48,7 +51,23 @@ userSchema.pre('save', async function (next) {
   next();
 });
 
+// Password Reset Instance to create Token
+userSchema.methods.createPasswordResetToken = function () {
+  const resetToken = crypto.randomBytes(32).toString('hex');
+  // Encrypting the reset token to store it in DB
+  this.passwordResetToken = crypto
+    .createHash('sha256')
+    .update(resetToken)
+    .digest('hex');
+
+  // Password Reset token expire time
+  this.passwordResetExpires = Date.now() + 10 * 60 * 1000;
+
+  return resetToken;
+};
+
 userSchema.pre('save', function (next) {
+  //Return from here if the password is not modified or the document is new
   if (!this.isModified('password') || this.isNew) return next();
 
   this.passwordChangedAt = Date.now() - 1000;

@@ -19,10 +19,6 @@ const app = express();
 
 app.use(express.json());
 
-app.get('/', (req, res) => {
-  res.send('Working in API...');
-});
-
 app.use('/api/products', productRouter);
 // app.use('/api/products', productRouter)
 
@@ -40,6 +36,18 @@ app.get('/api/config/paypal', (req, res) =>
 // Making uploads folder as static file.
 const __dirname = path.resolve();
 app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
+
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, '/frontend/build')));
+
+  app.get('*', (req, res) =>
+    res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'))
+  );
+} else {
+  app.get('/', (req, res) => {
+    res.send('Working in API...');
+  });
+}
 
 // Error handling for undeclared URLs
 app.all('*', (req, res, next) => {

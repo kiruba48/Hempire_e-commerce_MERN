@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { Carousel, Image, Row, Col } from 'react-bootstrap';
+import { Carousel, Image } from 'react-bootstrap';
 import Loader from './Loader';
 import Message from './Message';
 import { listTopProducts } from '../actions/productActions';
@@ -31,10 +31,10 @@ const ProductCarousal = () => {
               className='d-block'
               fluid
             />
-            <Carousel.Caption className='carousel-caption'>
+            {/* <Carousel.Caption className='carousel-caption'>
               <h2>{product.name}</h2>
               <h2>(£{product.price})</h2>
-            </Carousel.Caption>
+            </Carousel.Caption> */}
             {/* <Row>
               <Col md={8}>
               </Col>

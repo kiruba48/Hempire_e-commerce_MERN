@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Button, Form } from 'react-bootstrap';
 import Message from '../components/Message';
 import { Col, Row } from 'react-bootstrap';
-import axios from 'axios';
 import { listOfProductsBySection } from '../actions/productActions';
 import ProductCarousal from '../components/ProductCarousal';
 
@@ -24,6 +23,7 @@ function SectionScreen({ location }) {
 
   useEffect(() => {
     dispatch(listOfProductsBySection(section, minPrice, maxPrice, size));
+    // eslint-disable-next-line
   }, [section, dispatch]);
 
   const handleSubmit = (e) => {
