@@ -231,11 +231,6 @@ export const productCreateAction = (product) => async (dispatch, getState) => {
       type: PRODUCT_CREATE_SUCCESS,
       payload: data,
     });
-
-    // dispatch({
-    //   type: PRODUCT_DETAILS_SUCCESS,
-    //   payload: data,
-    // });
   } catch (error) {
     dispatch({
       type: PRODUCT_CREATE_FAIL,

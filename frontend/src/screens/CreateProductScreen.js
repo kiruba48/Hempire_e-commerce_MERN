@@ -226,7 +226,7 @@ const CreateProductScreen = ({ history, match }) => {
           </Form.Group>
 
           <Button variant='primary' type='submit' className='mr-3'>
-            Update
+            Create
           </Button>
           <Link to='/admin/productlist' className='btn btn-dark my-3'>
             Go Back

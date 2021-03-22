@@ -375,7 +375,7 @@ const ProductScreen = ({ history, match }) => {
                   <Accordion.Collapse eventKey='2'>
                     <Card.Body>
                       <h5>See What Our Customers say about this Product</h5>
-                      {product.reviews.length === 0 && (
+                      {product.reviews && product.reviews.length === 0 && (
                         <Message>No Reviews</Message>
                       )}
                       <ListGroup variant='flush'>

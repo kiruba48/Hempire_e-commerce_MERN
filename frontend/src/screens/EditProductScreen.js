@@ -71,6 +71,10 @@ const EditProductScreen = ({ history, match }) => {
     }
   }, [userInfo, history, product, productId, dispatch, successUpdate]);
 
+  // const sizeArr = size.split(',');
+
+  // const colorArr = color.split(',');
+
   const submitHandler = (e) => {
     e.preventDefault();
     // update product
