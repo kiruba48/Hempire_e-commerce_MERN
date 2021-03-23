@@ -25,8 +25,10 @@ import Loader from '../components/Loader';
 import Message from '../components/Message';
 import ColorChooser from '../components/ColorChooser';
 import { PRODUCT_CREATE_REVIEW_RESET } from '../constants/productConstants';
+import useScrollTop from '../hooks/useScrollTop';
 
 const ProductScreen = ({ history, match }) => {
+  useScrollTop();
   const [quantity, setQuantity] = useState(1);
   const [selectedSize, setSelectedSize] = useState('S');
   const [selectedColor, setSelectedColor] = useState('white');

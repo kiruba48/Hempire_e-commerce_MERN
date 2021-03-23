@@ -60,6 +60,7 @@ export const productSectionReducer = (state = { products: [] }, action) => {
         products: action.payload.products,
         pages: action.payload.pages,
         page: action.payload.page,
+        sectionPages: action.payload.sectionPages,
       };
     case PRODUCT_SECTION_LIST_FAIL:
       return { loading: false, error: action.payload };

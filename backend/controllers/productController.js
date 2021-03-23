@@ -15,12 +15,19 @@ const getAllProducts = asyncHandler(async (req, res, next) => {
     .pagination()
     .sort();
   const products = await features.query;
+  const sectionCount = await Product.countDocuments({ sex: features.section });
   const count = await Product.countDocuments({ ...features.keyword });
   const page = features.page;
   const limit = features.limit;
+
   // const products = await Product.find(queryObj);
   // res.json(products);
-  res.json({ products, page, pages: Math.ceil(count / limit) });
+  res.json({
+    products,
+    page,
+    pages: Math.ceil(count / limit),
+    sectionPages: Math.ceil(sectionCount / limit),
+  });
 });
 
 // @description   Fetch single product

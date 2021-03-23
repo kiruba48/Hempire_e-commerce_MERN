@@ -20,8 +20,8 @@ const EditProductScreen = ({ history, match }) => {
   const [brand, setBrand] = useState('');
   const [image, setImage] = useState('');
   const [sex, setSex] = useState('');
-  const [color, setColor] = useState([]);
-  const [size, setSize] = useState([]);
+  const [color, setColor] = useState('');
+  const [size, setSize] = useState('');
   const [countInStock, setCountInStock] = useState(0);
   const [description, setDescription] = useState('');
   const [numReviews, setNumReviews] = useState(0);
@@ -60,9 +60,9 @@ const EditProductScreen = ({ history, match }) => {
         setPrice(product.price);
         setBrand(product.brand);
         setImage(product.image);
-        setColor(product.color);
+        setColor(product.color.join());
         setSex(product.sex);
-        setSize(product.size);
+        setSize(product.size.join());
         setCountInStock(product.countInStock);
         setDescription(product.description);
         setNumReviews(product.numReviews);
@@ -71,9 +71,9 @@ const EditProductScreen = ({ history, match }) => {
     }
   }, [userInfo, history, product, productId, dispatch, successUpdate]);
 
-  // const sizeArr = size.split(',');
+  const sizeArr = size.split(',');
 
-  // const colorArr = color.split(',');
+  const colorArr = color.split(',');
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -84,9 +84,9 @@ const EditProductScreen = ({ history, match }) => {
         price,
         brand,
         image,
-        color,
+        color: colorArr,
         sex,
-        size,
+        size: sizeArr,
         countInStock,
         description,
         numReviews,

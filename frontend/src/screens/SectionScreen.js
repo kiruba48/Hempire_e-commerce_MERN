@@ -5,31 +5,52 @@ import Message from '../components/Message';
 import { Col, Row } from 'react-bootstrap';
 import { listOfProductsBySection } from '../actions/productActions';
 import ProductCarousal from '../components/ProductCarousal';
-
+import useScrollTop from '../hooks/useScrollTop';
+import SectionPaginate from '../components/SectionPaginate';
 import Product from '../components/Product';
 import Loader from '../components/Loader';
 
-function SectionScreen({ location }) {
+function SectionScreen({ location, match }) {
+  useScrollTop();
+
+  const pageNumber = match.params.pageNumber || 1;
   const [minPrice, setMinPrice] = useState(0);
   const [maxPrice, setMaxPrice] = useState(200);
   const [size, setSize] = useState('S');
 
   const dispatch = useDispatch();
   // const [products, setProducts] = useState([]);
-  const section = location.search ? location.search.split('=')[1] : null;
+  let section;
+  let query;
+  if (pageNumber === 1) {
+    section = location.search ? location.search.split('=')[1] : null;
+  } else {
+    query = location.search.split('/')[0];
+
+    section = query.split('=')[1];
+  }
+
   // Getting the data from our State repository
   const productSectionList = useSelector((state) => state.productSectionList);
-  const { loading, error, products, page, pages } = productSectionList;
+  const { loading, error, products, page, sectionPages } = productSectionList;
+
+  // console.log(sectionPages);
 
   useEffect(() => {
-    dispatch(listOfProductsBySection(section, minPrice, maxPrice, size));
+    dispatch(
+      listOfProductsBySection(section, minPrice, maxPrice, size, pageNumber)
+    );
     // eslint-disable-next-line
-  }, [section, dispatch]);
+  }, [section, dispatch, pageNumber]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(listOfProductsBySection(section, minPrice, maxPrice, size));
+    dispatch(
+      listOfProductsBySection(section, minPrice, maxPrice, size, pageNumber)
+    );
   };
+
+  // console.log(section, pageNumber);
 
   return (
     <>
@@ -145,6 +166,13 @@ function SectionScreen({ location }) {
           </Col>
           <Col sm={12} md={9}>
             <Row>
+              {products.length <= 0 && (
+                <div className='basket-empty'>
+                  <h5 className='basket-empty-msg'>
+                    No Products! Please search for different range
+                  </h5>
+                </div>
+              )}
               {products.map((product) => {
                 return (
                   <Col sm={8} md={4} key={product._id}>
@@ -153,6 +181,11 @@ function SectionScreen({ location }) {
                 );
               })}
             </Row>
+            <SectionPaginate
+              pages={sectionPages}
+              page={page}
+              section={section}
+            />
           </Col>
         </Row>
       )}

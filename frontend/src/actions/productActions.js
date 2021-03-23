@@ -57,14 +57,15 @@ export const listOfProductsBySection = (
   section,
   minPrice,
   maxPrice,
-  size
+  size,
+  page = ''
 ) => async (dispatch) => {
   try {
     dispatch({ type: PRODUCT_SECTION_LIST_REQUEST });
 
     // Making request to server for products
     const { data } = await axios.get(
-      `/api/products?sex=${section}&price[gte]=${minPrice}&price[lte]=${maxPrice}&size=${size}`
+      `/api/products?sex=${section}&price[gte]=${minPrice}&price[lte]=${maxPrice}&size=${size}&page=${page}`
     );
     dispatch({
       type: PRODUCT_SECTION_LIST_SUCCESS,

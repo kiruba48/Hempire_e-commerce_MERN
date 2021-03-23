@@ -7,6 +7,7 @@ class ApiFeatures {
     this.keyword;
     this.page;
     this.limit;
+    this.section;
   }
 
   filter() {
@@ -16,6 +17,8 @@ class ApiFeatures {
     excludedFiles.forEach((element) => {
       delete queryObj[element];
     });
+
+    this.section = this.queryString.sex && this.queryString.sex;
 
     let queryString = JSON.stringify(queryObj);
     queryString = queryString.replace(
