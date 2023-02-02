@@ -5,8 +5,9 @@
   "main": "server.js",
   "type": "module",
   "scripts": {
-    "start": "nodemon backend/server",
+    "start": "node backend/server",
     "client": "npm start --prefix frontend",
+    "dev:local": "nodemon backend/server",
     "dev": "concurrently \"npm start\" \"npm run client\"",
     "data:import": "node backend/import-dev-data",
     "data:delete": "node backend/import-dev-data --delete",
